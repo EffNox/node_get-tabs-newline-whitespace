@@ -1,0 +1,32 @@
+repos:
+  - repo: local
+    hooks:
+      - id: restricted-filenames
+        name: Check commits for unexpected file extensions
+        entry: These file extensions are unusual and should be checked
+        language: fail
+        files: '.*\.(xlsx|doc)'
+      - id: restricted-file-types
+        name: Check commits for unexpected file types
+        entry: These file types are unusual and should be checked
+        language: fail
+        types: ['binary']
+        exclude_types: ['image']
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: check-case-conflict
+      - id: check-yaml
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ['--maxkb=20']
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.3.2
+    hooks:
+      - id: prettier
+        args: [--single-quote]
